@@ -1,94 +1,58 @@
-# Sistema de Ventas (Aplicacion de Escritorio)
+# Sistema de Gestión de Ventas e Inventario
 
-Proyecto academico para el Taller de Programacion (Semestre II - 2026). Sistema modular de gestion comercial y control de inventario desarrollado en Java Swing con persistencia en MariaDB bajo el patron arquitectonico MVC/DAO.
-
----
-
-## 1. Stack Tecnologico
-
-- Lenguaje: Java 17 (JDK)
-- Interfaz Grafica: Java Swing / NetBeans GUI Builder (Matisse)
-- Entorno de Desarrollo: Apache NetBeans IDE (Apache Ant)
-- Base de Datos: MariaDB (gestionada localmente con HeidiSQL / DBngin)
-- Driver JDBC: mariadb-java-client-3.3.3.jar
-- Control de Versiones: Git y GitHub
+Sistema comercial modular de escritorio desarrollado en Java Swing con persistencia en MariaDB, estructurado bajo el patrón arquitectónico por capas MVC / DAO.
 
 ---
 
-## 2. Arquitectura de Paquetes
+## 1. Stack Tecnológico
 
-El codigo fuente esta organizado dentro del directorio `src/` respetando una separacion estricta de responsabilidades:
-
-- `proyecto.conexion`: Centraliza la clase `ConexionBD.java` para abrir y gestionar la sesion JDBC con MariaDB.
-- `proyecto.modelos`: Clases entidad (POJO) que representan las tablas de la base de datos en memoria (atributos privados, constructores y getters/setters).
-- `proyecto.dao`: Clases de acceso a datos (Data Access Object) donde se aislaran las consultas SQL mediante PreparedStatement.
-- `proyecto.vistas`: Subpaquetes independientes para aislar los archivos `.java` y `.form` de cada integrante:
-  - `proyecto.vistas.inventario`: Formularios del Modulo I.
-  - `proyecto.vistas.en_vivo`: Formularios del Modulo II.
-  - `proyecto.vistas.tienda`: Formularios del Modulo III.
-  - `proyecto.vistas.promociones`: Formularios del Modulo IV.
+- **Lenguaje:** Java 17 (JDK)
+- **GUI:** Java Swing / NetBeans GUI Builder (Matisse)
+- **IDE & Build:** Apache NetBeans (Apache Ant)
+- **Base de Datos:** MariaDB (Local, puerto 3306)
+- **Driver JDBC:** `mariadb-java-client-3.3.3.jar`
+- **Control de Versiones:** Git y GitHub
 
 ---
 
-## 3. Estado Actual del Proyecto (Semana 1)
+## 2. Arquitectura de Paquetes (`src/`)
 
-En esta primera etapa se completaron los cimientos operativos del sistema:
-
-1. Estructuracion del proyecto en NetBeans con sistema de compilacion Ant.
-2. Incorporacion de la libreria `mariadb-java-client-3.3.3.jar` en la carpeta `lib/` y vinculacion a las dependencias del proyecto.
-3. Configuracion de `.gitignore` para omitir binarios y configuraciones locales (`build/`, `dist/`, `nbproject/private/`).
-4. Implementacion de `ConexionBD.java` con el metodo estatico de conexion contra `127.0.0.1:3306/sistema_ventas`.
-5. Creacion de la base de datos base `sistema_ventas` en MariaDB.
-6. Construccion de la primera interfaz visual `RecepcionCajasForm.java` en NetBeans Matisse con prueba de conexion exitosa mediante `JOptionPane`.
-7. Inicializacion y publicacion del repositorio base en GitHub.
+- `proyecto.conexion`: Conexión centralizada JDBC mediante `ConexionBD.java`.
+- `proyecto.modelos`: Clases de dominio POJO (atributos privados, constructores y getters/setters).
+- `proyecto.dao`: Operaciones CRUD aisladas con `PreparedStatement` seguro.
+- `proyecto.vistas`: Subpaquetes modulares independientes para evitar colisiones en formularios (`inventario`, `en_vivo`, `tienda`, `promociones`).
 
 ---
 
-## 4. Planificacion y Fases Futuras
+## 3. Registro de Avance Semanal
 
-El proyecto se dividira en desarrollo individual por modulos y una posterior integracion general:
+### Semana 1: Configuración de Entorno y Conectividad
+- Configuración del proyecto base en NetBeans (Java Ant) con exclusiones en `.gitignore`.
+- Vinculación del driver `mariadb-java-client-3.3.3.jar` en la carpeta física `lib/`.
+- Creación de la base de datos `sistema_ventas` en MariaDB local.
+- Implementación de la clase `ConexionBD.java` con método de conexión estático.
+- Diseño de maquetas visuales base por módulo en NetBeans Matisse con verificación interactiva de conexión (`JOptionPane`).
 
-### Modulo I: Inventario y Logistica
-- Recepcion de cajas con registro de remision y control de discrepancias (faltante, danado, sobrante).
-- Control secuencial de estados de caja (recibida -> en clasificacion -> clasificada).
-- Catalogacion de productos con atributos completos, generacion de codigo unico y soporte de fotografias.
-- Motor de Kardex: calculo inmutable del stock disponible mediante registro estricto de entradas, salidas y mermas.
-- Alertas de stock minimo configurable por categoria y trazabilidad completa de lotes y proveedores.
-
-### Modulo II: Ventas en Vivo (Live Streaming)
-- Programacion de transmisiones validando cruce de horarios de anfitriones.
-- Armado de catalogo exclusivo con productos disponibles en inventario.
-- Venta rapida en tiempo real con descuento inmediato de existencias.
-- Temporizador de apartado de productos por 15 minutos con liberacion automatica de stock.
-- Panel dinamico de metricas en curso y resumen de cierre de live.
-
-### Modulo III: Tienda Virtual, Clientes y Despacho
-- Carrito de compras con validacion de existencias disponibles.
-- Secuencia inmutable de estados de pedido: pendiente -> confirmado -> preparacion -> enviado -> entregado.
-- Registro y validacion de comprobantes de pago simulados.
-- Clasificacion periodica y automatica de clientes (VIP, frecuente, ocasional).
-- Control logistico de 3 modalidades de entrega: recojo en tienda (con carnet de identidad), deposito y puntos de entrega fijos con horarios programados.
-
-### Modulo IV: Promociones y Reporteria
-- Motor de promociones con soporte para descuentos porcentuales, montos fijos, combos y ofertas 2x1.
-- Administracion de cupones con codigo unico y limites de uso.
-- Reglas de resolucion de conflictos entre promociones concurrentes.
-- Tablero estadistico de ventas comparativas (Live vs. Tienda Virtual) por dia, semana y mes.
-- Generacion de documentos y reportes de productos mas/menos vendidos y clientes top.
-
-### Fase de Integracion y Administracion (Grupal)
-- Modulo de administracion con login seguro, gestion de roles, parametros generales y bitacora de auditoria inmutable.
-- Menu principal unificado que ensamble todas las pantallas individuales.
-- Simulacion masiva de datos: carga de operaciones de los ultimos 2 meses (al menos 3 proveedores, 10 cajas provistas por proveedor y minimo 20 productos por caja, sumando mas de 600 productos reales en la base de datos).
+### Semana 2: Persistencia Inicial del Módulo de Inventario
+- **Base de datos:** Creación de la tabla física `cajas` en MariaDB con clave primaria autoincremental, restricción `UNIQUE` en remisión y estado predeterminado `'recibida'`.
+- **Capa Modelo:** Implementación de la entidad `Caja.java` (`proyecto.modelos`) con constructores para instanciación y carga de datos.
+- **Capa DAO:** Creación de `CajaDAO.java` (`proyecto.dao`) con sentencias preparadas para inserción (`registrarCaja`) y lectura dinámica (`listarCajas`).
+- **Capa Vista:** Actualización de `RecepcionCajasForm.java` (`proyecto.vistas.inventario`) con captura de datos, validación de obligatoriedad, parseo seguro a enteros y renderizado reactivo en un componente `JTable` mediante `DefaultTableModel`.
 
 ---
 
-## 5. Instrucciones para Ejecutar el Proyecto Localmente
+## 4. Hoja de Ruta de Módulos
+
+- **Módulo I (Inventario):** Recepción de cajas, discrepancias físicas, catalogación de productos con fotografía y motor de Kardex.
+- **Módulo II (Ventas en Vivo):** Programación de transmisiones, catálogo exclusivo, temporizador de apartado (15 min) y métricas de cierre.
+- **Módulo III (Tienda y Despacho):** Carrito de compras, máquina de estados de pedidos y modalidades de entrega (recojo, depósito, punto fijo).
+- **Módulo IV (Promociones y Reportes):** Motor de descuentos/cupones y tablero analítico comparativo (Live vs. Tienda).
+- **Fase Grupal:** Menú principal unificado, control de accesos/roles y simulación de 600+ productos reales.
+
+---
+
+## 5. Instrucciones de Ejecución
 
 1. Clonar el repositorio:
-   `git clone https://github.com/Jh0eL001/sistema-ventas.git`
-2. Abrir Apache NetBeans y cargar el proyecto desde `File -> Open Project`.
-3. Iniciar el servidor local de MariaDB en el puerto `3306` (usuario `root`, sin contrasena).
-4. Crear la base de datos ejecutando en HeidiSQL:
-   `CREATE DATABASE IF NOT EXISTS sistema_ventas;`
-5. Ejecutar la vista de prueba `RecepcionCajasForm.java` en NetBeans para validar la comunicacion con la base de datos.
+   ```bash
+   git clone [https://github.com/Jh0eL001/sistema-ventas.git](https://github.com/Jh0eL001/sistema-ventas.git)
