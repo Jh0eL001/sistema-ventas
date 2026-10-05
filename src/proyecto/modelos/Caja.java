@@ -5,9 +5,12 @@ public class Caja {
     private int id;
     private String numeroRemision;
     private String proveedor;
-    private int cantidadDeclarada;
-    private String estado;
     private String fechaRecepcion;
+    private int cantidadDeclarada;
+    private int cantDaniados;
+    private int cantFaltantes;
+    private int cantSobrantes;
+    private String estado;
 
     public Caja() {
     }
@@ -16,6 +19,9 @@ public class Caja {
         this.numeroRemision = numeroRemision;
         this.proveedor = proveedor;
         this.cantidadDeclarada = cantidadDeclarada;
+        this.cantDaniados = 0;
+        this.cantFaltantes = 0;
+        this.cantSobrantes = 0;
         this.estado = estado;
         this.fechaRecepcion = fechaRecepcion;
     }
@@ -50,6 +56,30 @@ public class Caja {
 
     public void setCantidadDeclarada(int cantidadDeclarada) {
         this.cantidadDeclarada = cantidadDeclarada;
+    }
+
+    public int getCantDaniados() {
+        return cantDaniados;
+    }
+
+    public void setCantDaniados(int cantDaniados) {
+        this.cantDaniados = cantDaniados;
+    }
+
+    public int getCantFaltantes() {
+        return cantFaltantes;
+    }
+
+    public void setCantFaltantes(int cantFaltantes) {
+        this.cantFaltantes = cantFaltantes;
+    }
+
+    public int getCantSobrantes() {
+        return cantSobrantes;
+    }
+
+    public void setCantSobrantes(int cantSobrantes) {
+        this.cantSobrantes = cantSobrantes;
     }
 
     public String getEstado() {
