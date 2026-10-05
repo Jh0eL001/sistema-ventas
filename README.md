@@ -1,4 +1,7 @@
 # Sistema de Gestión de Ventas e Inventario
+'''
+cd /mnt/c/Users/Legion/Documents/NetBeansProjects/sistema-ventas
+'''
 
 Sistema comercial modular de escritorio desarrollado en Java Swing con persistencia en MariaDB, estructurado bajo el patrón arquitectónico por capas MVC / DAO.
 
