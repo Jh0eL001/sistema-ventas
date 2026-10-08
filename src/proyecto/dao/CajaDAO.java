@@ -43,6 +43,9 @@ public class CajaDAO {
                 caja.setNumeroRemision(rs.getString("numero_remision"));
                 caja.setProveedor(rs.getString("proveedor"));
                 caja.setCantidadDeclarada(rs.getInt("cantidad_declarada"));
+                caja.setCantDaniados(rs.getInt("cant_daniados"));
+                caja.setCantFaltantes(rs.getInt("cant_faltantes"));
+                caja.setCantSobrantes(rs.getInt("cant_sobrantes"));
                 caja.setEstado(rs.getString("estado"));
                 caja.setFechaRecepcion(rs.getString("fecha_recepcion"));
                 lista.add(caja);
@@ -54,5 +57,24 @@ public class CajaDAO {
             System.out.println("Error al listar cajas: " + e.getMessage());
         }
         return lista;
+    }
+
+    public boolean actualizarDiscrepanciasYEstado(int id, int cantDaniados, int cantFaltantes, int cantSobrantes) {
+        String sql = "UPDATE cajas SET cant_daniados = ?, cant_faltantes = ?, cant_sobrantes = ?, estado = 'en clasificacion' WHERE id = ?";
+        try {
+            Connection con = ConexionBD.conectar();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cantDaniados);
+            ps.setInt(2, cantFaltantes);
+            ps.setInt(3, cantSobrantes);
+            ps.setInt(4, id);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error al actualizar discrepancias: " + e.getMessage());
+            return false;
+        }
     }
 }
