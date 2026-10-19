@@ -60,7 +60,7 @@ public class CajaDAO {
     }
 
     public boolean actualizarDiscrepanciasYEstado(int id, int cantDaniados, int cantFaltantes, int cantSobrantes) {
-        String sql = "UPDATE cajas SET cant_daniados = ?, cant_faltantes = ?, cant_sobrantes = ?, estado = 'en clasificacion' WHERE id = ?";
+        String sql = "UPDATE cajas SET cant_daniados = ?, cant_faltantes = ?, cant_sobrantes = ?, estado = 'en_clasificacion' WHERE id = ?";
         try {
             Connection con = ConexionBD.conectar();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -77,4 +77,40 @@ public class CajaDAO {
             return false;
         }
     }
+
+    public java.util.List<Caja> listarCajasEnClasificacion() {
+        java.util.List<Caja> lista = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM cajas WHERE estado = 'en_clasificacion'";
+        try (java.sql.Connection con = proyecto.conexion.ConexionBD.conectar(); java.sql.PreparedStatement ps = con.prepareStatement(sql); java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Caja caja = new Caja();
+                caja.setId(rs.getInt("id"));
+                caja.setNumeroRemision(rs.getString("numero_remision"));
+                caja.setProveedor(rs.getString("proveedor"));
+                caja.setCantidadDeclarada(rs.getInt("cantidad_declarada"));
+                caja.setCantDaniados(rs.getInt("cant_daniados"));
+                caja.setCantFaltantes(rs.getInt("cant_faltantes"));
+                caja.setCantSobrantes(rs.getInt("cant_sobrantes"));
+                caja.setEstado(rs.getString("estado"));
+                caja.setFechaRecepcion(rs.getString("fecha_recepcion"));
+                lista.add(caja);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar cajas en clasificacion: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    public boolean actualizarEstadoClasificada(int idCaja) {
+        String sql = "UPDATE cajas SET estado = 'clasificada' WHERE id = ?";
+        try (java.sql.Connection con = proyecto.conexion.ConexionBD.conectar(); java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCaja);
+            int filas = ps.executeUpdate();
+            return filas > 0;
+        } catch (Exception e) {
+            System.out.println("Error al actualizar estado a clasificada: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }

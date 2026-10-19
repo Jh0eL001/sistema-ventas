@@ -4,7 +4,6 @@ public class Producto {
 
     private int id;
     private int cajaId;
-    private int categoriaId;
     private String codigo;
     private String nombre;
     private String material;
@@ -18,9 +17,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int cajaId, int categoriaId, String codigo, String nombre, String material, double peso, String calidad, double costo, double precio, String foto, String estado) {
+    public Producto(int cajaId, String codigo, String nombre, String material, double peso, String calidad, double costo, double precio, String foto, String estado) {
         this.cajaId = cajaId;
-        this.categoriaId = categoriaId;
         this.codigo = codigo;
         this.nombre = nombre;
         this.material = material;
@@ -46,14 +44,6 @@ public class Producto {
 
     public void setCajaId(int cajaId) {
         this.cajaId = cajaId;
-    }
-
-    public int getCategoriaId() {
-        return categoriaId;
-    }
-
-    public void setCategoriaId(int categoriaId) {
-        this.categoriaId = categoriaId;
     }
 
     public String getCodigo() {
