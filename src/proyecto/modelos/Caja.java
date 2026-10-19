@@ -11,7 +11,7 @@ public class Caja {
     private int cantFaltantes;
     private int cantSobrantes;
     private String estado;
-
+    
     public Caja() {
     }
 
