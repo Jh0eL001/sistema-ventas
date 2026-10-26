@@ -13,6 +13,7 @@ public class Producto {
     private double precio;
     private String foto;
     private String estado;
+    private int stockCalculado;
 
     public Producto() {
     }
@@ -116,5 +117,13 @@ public class Producto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public int getStockCalculado() {
+        return stockCalculado;
+    }
+
+    public void setStockCalculado(int stockCalculado) {
+        this.stockCalculado = stockCalculado;
     }
 }
